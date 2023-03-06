@@ -36,4 +36,13 @@ async function getUsersByViews(minViews: number): Promise<User[]> {
   return users;
 }
 
-export { addUser, getUserByEmail, getUserById, getUsersByViews };
+async function updateEmail(userId: string, newEmail: string): Promise<void>{
+const user = await getUserById(userId);
+
+if(user){
+  user.email = newEmail;
+}
+
+}
+
+export { addUser, getUserByEmail, getUserById, getUsersByViews, updateEmail};

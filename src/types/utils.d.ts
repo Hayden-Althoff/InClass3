@@ -8,3 +8,8 @@ type AuthRequest = {
   email: string;
   password: string;
 };
+
+type NewEmailBody = {
+  email: string;
+  userId: string;
+}

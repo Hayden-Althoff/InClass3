@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import argon2 from 'argon2';
-import { addUser, getUserByEmail, updateEmail} from '../models/UserModel';
+import { addUser, getUserByEmail, getUserById, updateEmail} from '../models/UserModel';
 import { parseDatabaseError } from '../utils/db-utils';
 
 async function registerUser(req: Request, res: Response): Promise<void> {
@@ -50,6 +50,14 @@ async function updateUserEmail(req: Request, res: Response): Promise<void>{
   const { email, userId } = req.body as NewEmailBody;
 
   await updateEmail(userId, email);
+
+  res.sendStatus(200);
 }
 
-export { registerUser, logIn, updateUserEmail };
+async function findUserById(req: Request, res: Response): Promise<void>{
+  const { userId } = req.body as retrieveId;
+  const user = await getUserById(userId);
+
+  res.send(200);
+}
+export { registerUser, logIn, updateUserEmail, findUserById};

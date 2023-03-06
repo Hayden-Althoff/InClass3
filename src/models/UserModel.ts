@@ -41,7 +41,10 @@ const user = await getUserById(userId);
 
 if(user){
   user.email = newEmail;
+
+  await userRepository.createQueryBuilder().update(User).set({email: user.email}).where({userId: user.userId}).execute();
 }
+
 
 }
 

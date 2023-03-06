@@ -13,3 +13,7 @@ type NewEmailBody = {
   email: string;
   userId: string;
 }
+
+type retrieveId = {
+  userId: string;
+}

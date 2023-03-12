@@ -1,19 +1,27 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToOne,
+  JoinColumn,
+  Relation,
+  OneToMany,
+} from 'typeorm';
+import { AvatarPhoto } from './AvatarPhoto';
+import { Review } from './Review';
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  userId: string;
+  id: number;
 
-  @Column({ unique: true })
-  email: string;
+  @Column()
+  name: string;
 
-  @Column({ unique: true })
-  passwordHash: string;
+  @OneToOne(() => AvatarPhoto, (avatarPhoto) => avatarPhoto.user)
+  @JoinColumn()
+  avatarPhoto: Relation<AvatarPhoto>;
 
-  @Column({ default: false })
-  verifiedEmail: boolean;
-
-  @Column({ default: 0 })
-  profileViews: number;
+  @OneToMany(() => Review, (review) => review.user)
+  reviews: Relation<Review>[];
 }

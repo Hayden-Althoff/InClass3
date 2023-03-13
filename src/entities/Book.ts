@@ -18,11 +18,11 @@ export class Book {
   @Column()
   title: string;
 
-  @Column()
-  yearPublished: number | null;
+  @Column({ nullable: true })
+  yearPublished: number;
 
-  @Column()
-  publicDomain: boolean = false;
+  @Column({ default: false })
+  publicDomain: boolean;
 
   @OneToMany(() => Review, (review) => review.book, { cascade: ['insert', 'update'] })
   review: Relation<Review>[];
